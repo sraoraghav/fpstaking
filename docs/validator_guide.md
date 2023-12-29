@@ -320,10 +320,15 @@ This is useful for failover scenarios.
 Either copy your already existing keyfiles `node-keystore.ks` to `/etc/radix-babylon/node/secrets-validator` or `/etc/radix-babylon/node/secrets-fullnode` or create a new keys.
 Use a password generator of your choice to generate a secure password, don't use your regular one because
 it will be written in plain text on disk and loaded as environment variable.
-```
-./bin/keygen --keystore=secrets-validator/node-keystore.ks --password=YOUR_VALIDATOR_PASSWORD
-./bin/keygen --keystore=secrets-fullnode/node-keystore.ks --password=YOUR_FULLNODE_PASSWORD
-```
+
+Key generation of full node should be done using docker (install docker using apt install docker.io)
+and then give permission to radixdlt user sudo usermod -aG docker radixdlt
+
+Use the following command to generate the key file for the full node only:
+
+docker run --rm -v /etc/radixdlt/node/secrets-fullnode/:/keygen/key radixdlt/keygen:v1.4.1 --keystore=/keygen/key/node-keystore.ks--password=<password>
+
+
 
 If you are migrating from Olympia you already have valid keyfiles here which you can copy:
 ```
